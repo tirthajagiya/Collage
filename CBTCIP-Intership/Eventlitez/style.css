@@ -1,0 +1,235 @@
+* {
+    box-sizing: border-box;
+    font-family: Verdana, sans-serif;
+}
+
+body {
+    max-width: 100%;
+    background-color: #F0F0F0;
+    /* Light gray background */
+    color: #333333;
+    /* Charcoal text color */
+    font-size: 16px;
+}
+
+/* General container adjustments for responsiveness */
+#event {
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid #DDDDDD;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #FFFFFF;
+}
+
+#createEventButton button {
+    background-color: #FF6F61;
+    /* Coral */
+    border: 2px solid #DDDDDD;
+    /* Light gray border */
+    border-radius: 10px;
+    height: 40px;
+    color: #FFFFFF;
+    /* White text */
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#createEventButton button:hover {
+    background-color: #E55D50;
+    /* Slightly darker coral on hover */
+}
+
+#title {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+
+#addItem {
+    margin: 20px;
+}
+
+#formbox input {
+    color: #333333;
+    /* Charcoal text */
+    border: 1.5px solid #DDDDDD;
+    /* Light gray border */
+    border-radius: 4px;
+    padding: 5px;
+}
+
+/* Form Styling */
+#formbox {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: linear-gradient(135deg, #FF7F7F, #FFB347);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border: 1px solid #DDDDDD;
+    color: #333333;
+    max-width: 500px;
+    /* Set a max width for better readability */
+    margin: 0 auto;
+}
+
+/* Form Elements */
+#formbox label {
+    font-weight: bold;
+    color: #333333;
+}
+
+#formbox input[type="text"],
+#formbox input[type="date"],
+#formbox input[type="time"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 2px solid #FF7F7F;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#formbox input:focus {
+    border-color: #FF6F61;
+    outline: none;
+}
+
+/* Button Styling */
+#formbox button {
+    width: 100%;
+    padding: 12px;
+    background-color: #FF6F61;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#formbox button:hover {
+    background-color: #E55D50;
+}
+
+#formbox .btn-cancel {
+    background-color: #DDDDDD;
+    color: #333333;
+}
+
+#formbox .btn-cancel:hover {
+    background-color: #CCCCCC;
+}
+
+/* Align buttons side by side */
+#formbox .button-container {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+#addEvent {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+hr {
+    width: 97%;
+    border: 1px solid #DDDDDD;
+    /* Light gray border */
+}
+
+#box {
+    flex: 1 1 calc(50% - 40px);
+    min-width: 250px;
+    background: linear-gradient(135deg, #FF9A8B, #FF6F61);
+    /* Gradient from light pink to coral */
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Soft shadow */
+    border: 1px solid #DDDDDD;
+    /* Light gray border */
+    color: #FFFFFF;
+    /* White text */
+}
+
+#box:nth-child(2n) {
+    background: linear-gradient(135deg, #FF6F61, #FF9A8B);
+    /* Alternate gradient for variety */
+}
+
+#box:nth-child(3n) {
+    background: linear-gradient(135deg, #6A0D91, #D65B9F);
+    /* Purple to pink gradient */
+}
+
+#box:nth-child(4n) {
+    background: linear-gradient(135deg, #F1C40F, #F39C12);
+    /* Yellow to orange gradient */
+}
+
+#box button {
+    height: 35px;
+    width: 35px;
+    background-color: #FFFFFF;
+    /* White background for buttons */
+    border: 1px solid #DDDDDD;
+    /* Light gray border */
+    color: #FF6F61;
+    /* Coral text */
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#box button:hover {
+    background-color: #FF6F61;
+    /* Coral */
+    color: #FFFFFF;
+    /* White text */
+}
+
+#feedback {
+    position: sticky;
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+    #event {
+        width: 95%;
+        margin: 10px auto;
+    }
+
+    #addEvent {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #box {
+        width: 100%;
+        margin: 10px 0;
+        padding: 15px;
+    }
+
+    #formbox input,
+    #formbox button {
+        width: 100%;
+    }
+
+    #createEventButton {
+        margin-top: 10px;
+    }
+
+    #formbox {
+        padding: 10px;
+    }
+}
