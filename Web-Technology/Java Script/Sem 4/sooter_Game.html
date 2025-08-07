@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="score">Score : 0</div>
+    <div id="boxImage" onclick="scoreIncremant()" style="height: 50px; width: 50px; background-color: black; position: absolute;">
+        
+    </div>
+    <script>
+        let score=0;
+        function scoreIncremant(){
+            score++;
+            document.getElementById('score').innerHTML="Score : "+score;
+        }
+
+        function abc(){
+
+            // x=(Math.random())*(screen.availWidth);
+            // y=(Math.random())*(screen.availHeight);
+            console.log(x,y);
+            x=100;
+            y=100
+            document.getElementById('boxImage').style.top=y+"px";
+        }
+
+        // setInterval(1000,abc());
+    </script>
+</body>
+</html>

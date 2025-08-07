@@ -1,0 +1,315 @@
+* {
+    box-sizing: border-box;
+}
+
+header {}
+
+#header1 {
+    color: white;
+    background-color: #0573f0;
+    height: 36px;
+}
+
+#contain_for_header1 {
+    width: 80%;
+    margin-left: 10%;
+    display: flex;
+}
+
+#service_header1 {
+    width: 48%;
+    height: 36px;
+}
+
+#service_header1 p {
+    margin-top: 6px;
+}
+
+#order_header1 {
+    width: 48%;
+    display: flex;
+    justify-content: end;
+}
+
+#order_header1 a {
+    margin-left: 30px;
+    text-decoration: none;
+    color: white;
+    margin-top: 3px;
+}
+
+#header2 {
+    background-color: #007aff;
+    height: 72.8px;
+}
+
+#contain_for_header2 {
+    width: 80%;
+    margin-left: 10%;
+    display: flex;
+}
+
+#img_header2 {
+    width: 48%;
+}
+
+#search_header2 {
+    width: 48%;
+    display: flex;
+    justify-content: end;
+    padding-top: 15.4px;
+}
+
+#search_header2_contain {
+    background-color: white;
+    width: 261px;
+    display: flex;
+    height: 42px;
+}
+
+#for_inputbox input {
+    padding: 0;
+    margin: 0;
+    width: 240px;
+    height: 42px;
+    border: 0px solid white;
+}
+
+#for_inputbox input:hover {
+    text-decoration: none;
+}
+
+#for_searchbutton {
+    padding-top: 8.6px;
+}
+
+#for_searchbutton i {
+    color: #007aff;
+}
+
+#img_header2 img {
+    padding-top: 24.4px;
+}
+
+#header3 {
+    border-top: 0.5px solid black;
+    background-color: #007aff;
+    height: 52px;
+}
+
+#contain_for_header3 {
+    width: 80%;
+    margin-left: 10%;
+    display: flex;
+}
+
+#contain_for_header3 a {
+    color: white;
+    text-decoration: none;
+    padding-top: 14px;
+}
+
+#contain_for_header3_part1 {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#contain_for_header3_part2 {
+    width: 16%;
+    display: flex;
+    justify-content: end
+}
+
+#main_1 {
+    height: 672px;
+    background-image: url('electronic-store-hero-image.jpg');
+    background-size: cover;
+}
+
+#box_main_1 {
+    height: 420.6px;
+    width: 408px;
+    padding: 48px 32px 48px 32px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    top: 126px;
+    left: 140px;
+}
+
+#box_main_1 img {
+    height: 24px;
+    width: 95px;
+}
+
+#main_2_contain {
+    height: 690.8px;
+    border: .5px solid silver;
+    width: 85%;
+    margin-left: 7%;
+    margin-top: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#main_2_contain_1 {
+    width: 305px;
+    height: 305px;
+}
+
+#main_2_contain_1_image {
+    height: 300px;
+    width: 300px;
+    background-image: url('https://websitedemos.net/electronic-store-04/wp-content/uploads/sites/1055/2022/03/electronic-store-category-image-06.jpg');
+}
+
+#main_2_contain_1_text {
+    position: relative;
+    top: 220px;
+    text-align: center;
+}
+
+#main_2_contain_2 {
+    width: 305px;
+    height: 305px;
+}
+
+#main_2_contain_2_image {
+    height: 300px;
+    width: 300px;
+    background-image: url('https://websitedemos.net/electronic-store-04/wp-content/uploads/sites/1055/2022/03/electronic-store-category-image-08.jpg');
+}
+
+#main_2_contain_2_text {
+    position: relative;
+    top: 220px;
+    text-align: center;
+}
+
+#main_2_contain_3 {
+    width: 305px;
+    height: 305px;
+}
+
+#main_2_contain_3_image {
+    height: 300px;
+    width: 300px;
+    background-image: url('https://websitedemos.net/electronic-store-04/wp-content/uploads/sites/1055/2022/03/electronic-store-category-image-02.jpg');
+}
+
+#main_2_contain_3_text {
+    position: relative;
+    top: 220px;
+    text-align: center;
+}
+
+#main_2_contain_4 {
+    width: 305px;
+    height: 305px;
+}
+
+#main_2_contain_4_image {
+    height: 300px;
+    width: 300px;
+    background-image: url('https://websitedemos.net/electronic-store-04/wp-content/uploads/sites/1055/2022/03/electronic-store-category-image-07.jpg');
+}
+
+#main_2_contain_4_text {
+    position: relative;
+    top: 220px;
+    text-align: center;
+}
+
+#main_2_contain_5 {
+    width: 305px;
+    height: 305px;
+}
+
+#main_2_contain_5_image {
+    height: 300px;
+    width: 300px;
+    background-image: url('https://websitedemos.net/electronic-store-04/wp-content/uploads/sites/1055/2022/03/electronic-store-category-image-05.jpg');
+}
+
+#main_2_contain_5_text {
+    position: relative;
+    top: 220px;
+    text-align: center;
+}
+
+#main_2_contain_6 {
+    width: 305px;
+    height: 305px;
+}
+
+#main_2_contain_6_image {
+    height: 300px;
+    width: 300px;
+    background-image: url('https://websitedemos.net/electronic-store-04/wp-content/uploads/sites/1055/2022/03/electronic-store-category-image-03.jpg');
+}
+
+#main_2_contain_6_text {
+    position: relative;
+    top: 220px;
+    text-align: center;
+}
+
+#main_2_contain_7 {
+    width: 305px;
+    height: 305px;
+}
+
+#main_2_contain_7_image {
+    height: 300px;
+    width: 300px;
+    background-image: url('https://websitedemos.net/electronic-store-04/wp-content/uploads/sites/1055/2022/03/electronic-store-category-image-04.jpg');
+}
+
+#main_2_contain_7_text {
+    position: relative;
+    top: 220px;
+    text-align: center;
+}
+
+#main_2_contain_8 {
+    width: 305px;
+    height: 305px;
+}
+
+#main_2_contain_8_image {
+    height: 300px;
+    width: 300px;
+    background-image: url('https://websitedemos.net/electronic-store-04/wp-content/uploads/sites/1055/2022/03/electronic-store-category-image-01.jpg');
+}
+
+#main_2_contain_8_text {
+    position: relative;
+    top: 220px;
+    text-align: center;
+}
+
+#main_3 {
+    height: 432px;
+}
+
+#main_3_contain {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width: 80%;
+    margin-left: 10%;
+    border: 1px solid black;
+}
+
+#main_3_contain_1 {
+    display: flex;
+}
+
+#main_3_contain_1_img {
+    height: 256px;
+    width: 144px;
+    background-image: url('https://websitedemos.net/electronic-store-04/wp-content/uploads/sites/1055/2022/03/electronic-store-wireless-headphone.png');
+}
