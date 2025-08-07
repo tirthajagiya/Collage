@@ -1,0 +1,15 @@
+<div class="header">
+    <h1>Categories</h1>
+    <div class="accent-bar"></div>
+</div>
+
+<div class="categories-container">
+    <div class="category-card" *ngFor="let category of data">
+        <div class="category-image">
+            <img src={{category.image}} alt={{category.categoryName}}>
+        </div>
+        <div class="category-name">
+            <h3>{{category.categoryName}}</h3>
+        </div>
+    </div>
+</div>
