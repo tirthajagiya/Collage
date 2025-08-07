@@ -1,0 +1,21 @@
+﻿<h3>This is User Add/Edit Page</h3>
+
+<form asp-action="UserAddEdit" asp-controller="User">
+	
+	<input type="text" name="name" />
+
+	<input type="text" name="email" />
+
+	<input type="submit" />
+</form>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Name</th>
+		<th>Email</th>
+    </tr>
+	<tr>
+		<td>@ViewData["name"]</td>
+		<td>@ViewData["email"]</td>
+	</tr>
+</table>

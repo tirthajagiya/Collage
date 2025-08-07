@@ -1,0 +1,78 @@
+﻿@model DataTable
+@using System.Data
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<div class="container mt-5">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Doctor List</h4>
+            <a asp-controller="Doctor" asp-action="Index" class="btn btn-light fw-bold text-primary">
+                + Add Doctor
+            </a>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover text-center align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Qualification</th>
+                            <th>Specialization</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Modified</th>
+                            <th style="width: 100px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (DataRow row in Model.Rows)
+                        {
+                            <tr>
+                                <td>@row["Name"]</td>
+                                <td>@row["Email"]</td>
+                                <td>@row["Phone"]</td>
+                                <td>@row["Qualification"]</td>
+                                <td>@row["Specialization"]</td>
+                                <td>
+                                    @if (Convert.ToBoolean(row["IsActive"]))
+                                    {
+                                        <span class="badge bg-success">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Inactive</span>
+                                    }
+                                </td>
+                                <td>@Convert.ToDateTime(row["Created"]).ToString("yyyy-MM-dd")</td>
+                                <td>@Convert.ToDateTime(row["Modified"]).ToString("yyyy-MM-dd")</td>
+                                <td>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a asp-controller="Doctor"
+                                           asp-action="Edit"
+                                           asp-route-DoctorID="@row["DoctorID"]"
+                                           class="btn btn-sm btn-outline-warning"
+                                           title="Edit">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a asp-controller="Doctor"
+                                           asp-action="DoctorDelete"
+                                           asp-route-DoctorID="@row["DoctorID"]"
+                                           class="btn btn-sm btn-outline-danger"
+                                           title="Delete"
+                                           >
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
