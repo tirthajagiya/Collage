@@ -1,0 +1,78 @@
+.student-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 5px solid #f8f9fa;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.student-card {
+    text-align: center;
+    padding: 25px;
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: white;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.student-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+.badge-container {
+    margin: 10px 0;
+}
+.student-info {
+    margin-bottom: 15px;
+}
+.social-icons {
+    margin-top: 15px;
+}
+.social-icons a {
+    margin: 0 5px;
+    color: #6c757d;
+    transition: color 0.2s ease;
+}
+.social-icons a:hover {
+    color: #0d6efd;
+}
+.status-indicator {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+.status-active {
+    background-color: #28a745;
+}
+.status-away {
+    background-color: #ffc107;
+}
+.status-inactive {
+    background-color: #dc3545;
+}
+.dropdown-menu {
+    min-width: 250px;
+}
+.dropdown-item i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+.progress {
+    height: 8px;
+    margin-bottom: 15px;
+}
+.contact-info {
+    margin: 10px 0;
+    font-size: 0.9rem;
+}
+.contact-info i {
+    width: 20px;
+    text-align: center;
+    margin-right: 5px;
+}

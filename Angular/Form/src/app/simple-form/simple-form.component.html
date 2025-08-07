@@ -1,0 +1,91 @@
+<div class="container">
+    <h2>Personal Info</h2>
+    <div class="row">
+      <div class="col-2">
+        <label for="">Name : &nbsp;</label>
+      </div>
+      <div class="col">
+        <input type="text" name="Name" (input)="setStudentData($event)">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">
+        <label for="">Contact Number : &nbsp;</label>
+      </div>
+      <div class="col">
+        <input type="text" name="Contact_Number" (input)="setStudentData($event)">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">
+        <label for="">Sem : &nbsp;</label>
+      </div>
+      <div class="col">
+        <input type="text" name="Sem" (input)="setStudentData($event)">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">
+        <label for="">Spi : &nbsp;</label>
+      </div>
+      <div class="col">
+        <input type="text" name="Spi" (input)="setStudentData($event)">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        {{student | json}}
+      </div>
+    </div>
+    <h2>Project Detail</h2>
+    <div class="row">
+      <div class="col-2">
+        <label for="">Project Name : &nbsp;</label>
+      </div>
+      <div class="col">
+        <input type="text" name="Project_Name" (input)="setProjectData($event)">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">
+        <label for="">Project Id : &nbsp;</label>
+      </div>
+      <div class="col">
+        <input type="text" name="Project_Id" (input)="setProjectData($event)">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">
+        <label for="">Project Title : &nbsp;</label>
+      </div>
+      <div class="col">
+        <input type="text" name="Project_Title" (input)="setProjectData($event)">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button (click)="addProjectData($event)">Add</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        {{project | json}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <table>
+          <tr>
+            <th>Project Name</th>
+            <th>Project Id</th>
+            <th>Project Title</th>
+          </tr>
+          <tr *ngFor="let project of projects">
+            <td>{{project.Project_Name}}</td>
+            <td>{{project.Project_Id}}</td>
+            <td>{{project.Project_Title}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>

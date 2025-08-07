@@ -1,0 +1,17 @@
+<form [formGroup]="studentForm" (ngSubmit)="updateData(studentForm.value)">
+    <table>
+        <tr>
+            <td><label>Name :</label></td>
+            <td><input type="text" name="name" formControlName="name"></td>
+        </tr>
+        <tr>
+            <td><label>Image :</label></td>
+            <td><input type="text" name="avatar" formControlName="avatar"></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Edit" />
+            </td>
+        </tr>
+    </table>
+</form>

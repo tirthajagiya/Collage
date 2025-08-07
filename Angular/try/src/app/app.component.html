@@ -1,0 +1,39 @@
+<!-- <div [ngStyle]="myColor" style="height: 100vh; width: 100%;">
+    <button (click)="startLight()">Start Light</button>
+</div> -->
+<!-- <audio controls src="my.mp3">
+    <source src="my.mp3" type="audio/mp3">
+    Your browser does not support the audio element. -->
+<!-- </audio> -->
+
+<!-- <audio id="myAudio" controls>
+    <source src="https://media.geeksforgeeks.org/wp-content/uploads/20230524142525/gfg_offline_classes_en.mp3"
+        type="audio/mp3">
+</audio> -->
+
+<input type="checkbox" (click)="userAgree()" name="" id="">I Agree
+<br>
+<input type="submit" value="Submit" [disabled]="!isAgree">
+
+<br>
+<label>Select Couse : </label>
+<select name="sel" id="sel">
+    <option value="btech">B.Tech</option>
+    <option value="bse">Bsc</option>
+    <option value="other">Other</option>
+</select>
+
+<span><input *ngIf="" type="text"/></span>
+
+<table border="2">
+    <tr>
+        <th>Name</th>
+        <th>Mark</th>
+        <th>Status</th>
+    </tr>
+    <tr *ngFor="let stu of student" [ngStyle]="stu.Mark > 50 ? {color:'green'} :{color:'red'}">
+        <td>{{stu.Name}}</td>
+        <td>{{stu.Mark}}</td>
+        <td>{{stu.Mark >50 ? "Pass": "Fail"}}</td>
+    </tr>
+</table>

@@ -1,0 +1,6 @@
+<div class="btn btn-primary" (click)="backToHome()">Back</div>
+<button class="btn btn-danger" (click)="deleteStudent()">Delete</button>
+<a [routerLink]="['/update',data.id]" class="btn btn-warning">Edit</a>
+<img src={{data.avatar}} alt=""> 
+<h1>{{data.name}}'s Profile({{data.id}})</h1>
+Time : {{data.createdAt}}

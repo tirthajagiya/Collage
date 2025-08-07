@@ -1,0 +1,15 @@
+<form #studentForm="ngForm" (ngSubmit)="saveData(studentForm)">
+    <table>
+        <tr>
+            <td><label for="">Name :</label></td>
+            <td><input type="text" [(ngModel)]="studentData.name" name="name"></td>
+        </tr>
+        <tr>
+            <td><label for="">Image :</label></td>
+            <td><input type="text" [(ngModel)]="studentData.avatar" name="avatar"></td>
+        </tr>
+        <tr>
+            <input type="submit">
+        </tr>
+    </table>
+</form>

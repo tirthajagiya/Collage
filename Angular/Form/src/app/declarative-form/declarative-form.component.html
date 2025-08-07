@@ -1,0 +1,46 @@
+<div [ngStyle]="darkMode?myStyle:noStyle" style="height: 100vh;">
+
+    <label class="switch">
+      <input type="checkbox" (click)="modeChange()">
+      <span class="slider round"></span>
+    </label>
+  
+    <form #userForm="ngForm" (ngSubmit)="submitForm(userForm)">
+      <table>
+        <tr>
+          <td>
+            Enter Name :
+          </td>
+          <td>
+            <input type="text" name="name" [(ngModel)]="data.name" #name="ngModel" required>
+            <br>
+            <span *ngIf=name.invalid&&name.touched style="color: red;">Please Enter
+              Name</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Enter Password :
+          </td>
+          <td>
+            <input type="text" name="password" [(ngModel)]="data.password" #password="ngModel" id="abc"
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+            <br>
+            <div id="message">
+              <h3>Password must contain the following:</h3>
+              <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+              <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+              <p id="number" class="invalid">A <b>number</b></p>
+              <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <input type="submit" [disabled]="userForm.invalid">
+          </td>
+        </tr>
+      </table>
+    </form>
+  
+  </div>

@@ -1,0 +1,8 @@
+Name : 
+<span *ngIf="!nameChange">{{name}}</span>
+<span *ngIf="nameChange">
+  <input type="text" [(ngModel)]="name">
+</span>
+<button (click)="btnClick()">{{nameOfBtn}}</button>
+<br>
+<app-child [parentName]="name" (name)="reciveData($event)"/>

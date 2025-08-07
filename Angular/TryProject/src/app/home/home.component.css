@@ -1,0 +1,26 @@
+body{
+    margin: 0;
+}
+.main{
+    width: 400px;
+    height: 400px;
+}
+
+input{
+    width: 394px;
+    padding: 1px;
+    height: 50px;
+    text-align: right;
+    border: none;
+    margin-bottom: 20px;
+}
+
+.allbut{
+    display: flex;
+    flex-wrap: wrap;
+}
+.but button{
+    width: 95px;
+    height: 65px;
+    margin: auto;
+}

@@ -1,0 +1,73 @@
+<!-- interpolation -->
+<div style="float: left; border: 2px solid black;">
+    Hi, i am {{name}}
+<br>
+
+<!-- property binding -->
+<button [disabled]="isTrue">Click !</button>
+<br>
+
+<!-- pipe -->
+{{student | json}}
+<br>
+
+<!-- number pipe -->
+{{student.spi |number:'2.2-2'}}
+<br>
+
+<!-- date pipe -->
+{{date | date:"dd/MM/hh"}}
+<br>
+
+{{date | date:"fullDate"}}
+<br>
+
+{{student.name | lowercase}}
+<br>
+
+{{student.name | uppercase}}
+<br>
+
+{{student.name | titlecase}}
+<br>
+
+<!-- For Make Component in Angular Write Command in cmd outside of src
+ng g c component-name
+this component import in app ts file
+after use this component using <app-component_name></app-component_name> (Show Below) -->
+<!-- <app-home></app-home> -->
+
+Amount : {{amount | currency:'INR'}}
+<br>
+
+<!-- event binding -->
+<!-- <input type="text" (input)="getDetail($event)"/>
+<br> -->
+
+{{temp}}
+<br>
+
+<button (click)="clickButton()">Click</button>
+<br>
+
+******
+<br>
+
+<!-- Key Event -->
+<input type="text" (keydown)="keydown()" placeholder="Key down">
+<br>
+
+<!-- this work after keydown and before keyup -->
+<input type="text" (keypress)="keypress()" placeholder="Key Press">
+<br>
+
+<input type="text" (keyup)="keyup()" placeholder="Key Up">
+<br>
+
+<input type="text" (mousedown)="mousedown()" placeholder="Mouse Down">
+<br>
+</div>
+
+<div style="float: right; border: 1px solid black;">
+    <app-home></app-home>
+</div>

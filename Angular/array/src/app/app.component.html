@@ -1,0 +1,21 @@
+<!-- <input  type="text" id="" (change)="setStudentName($event)">
+<button (click)="addStudentName()">Add</button> -->
+<div (click)="divEvent()">
+  <input type="text" [(ngModel)]="name">
+<button (click)="addStudentName()">{{btnName}}</button>
+<table [border]="border">
+  <tr>
+    <th>Name</th>
+  </tr>
+  <tr *ngFor="let stu of student; let i=index">
+    <td>{{stu}}</td>
+    <td><button (click)="deleteStudent(i)">Delete</button></td>
+    <td><button (click)="updateStudent(i)">Update</button></td>
+  </tr>
+</table>
+</div>
+<input type="text" [(ngModel)]="serStu">
+<button (click)="searchStudent()">Search</button>
+<div *ngFor="let serStu of searchStu">
+  {{serStu}}
+</div>

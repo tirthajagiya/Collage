@@ -1,0 +1,30 @@
+<div *ngIf="!bol else abc">
+  Hello World
+</div>
+<ng-template #abc>
+  Bye
+</ng-template>
+
+<div *ngFor='let stu of stu_mark'>
+  {{stu}}
+</div>
+
+<input type="text" [(ngModel)]="day">
+<div [ngSwitch]="day">
+  <div *ngSwitchCase="'1'">Sunday</div>
+  <div *ngSwitchCase="'2'">Monday</div>
+  <div *ngSwitchCase="'3'">Tuesday</div>
+  <div *ngSwitchCase="'4'">Wednesday</div>
+  <div *ngSwitchCase="'5'">Thursday</div>
+  <div *ngSwitchCase="'6'">Friday</div>
+  <div *ngSwitchCase="'7'">Saturday</div>
+  <div *ngSwitchDefault="">Not Valid Day for this number</div>
+</div>
+
+<div [ngStyle]="true?myColor:otherColor">Show My Effect</div>
+
+<!-- <div [ngClass]="{'first':true,'second':true}">Check For Effect Using Class</div> -->
+
+<!-- <div [ngClass]="['first','second']">Check For Effect Using Class</div>  -->
+
+<!-- <div [ngClass]="'first second'">Check For Effect Using Class</div> -->

@@ -1,0 +1,11 @@
+<form (ngSubmit)="onSubmit()">
+    Username : <input type="text" [formControl]="username" />
+    <div *ngIf="username.touched && username.hasError('required')">Enter A Name</div>
+    <div *ngIf="username.touched && username.hasError('minlength')">Enter Must be 4 charachter</div>
+    <br>
+    Password : <input type="text" [formControl]="password" />
+    <div *ngIf="password.touched && password.hasError('required')">Enter A Password</div>
+    <div *ngIf="password.touched && password.hasError('minlength')">Enter Must be 4 charachter</div>
+    <br />
+    <input type="submit" [disabled]="username.invalid || password.invalid" />
+</form>
