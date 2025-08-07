@@ -1,0 +1,41 @@
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(2deg); }
+    100% { transform: translateY(0px) rotate(-2deg); }
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #1a2238 0%, #334155 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.property-card {
+    transition: all 0.3s ease;
+    perspective: 1000px;
+}
+
+.property-card:hover {
+    transform: scale(1.05) rotateX(5deg) rotateY(5deg);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.floating-element {
+    animation: float 4s ease-in-out infinite;
+}
+
+.hero-overlay {
+    background: rgba(26, 34, 56, 0.7);
+    /* backdrop-filter: blur(10px); */
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #4299e1, #9b59b6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.abc{
+    text-decoration: none;
+    color: white;
+}
