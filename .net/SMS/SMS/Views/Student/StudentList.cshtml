@@ -1,0 +1,95 @@
+﻿@model System.Data.DataTable
+
+@{
+    ViewData["Title"] = "Student List";
+}
+
+<div class="container my-5">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary mb-0">
+            <i class="bi bi-people-fill me-2"></i>@ViewData["Title"]
+        </h2>
+        <a href="@Url.Action("StudentForm", "Student")" class="btn btn-success shadow-sm">
+            <i class="bi bi-plus-circle me-1"></i> Add New Student
+        </a>
+    </div>
+
+    <!-- TempData Messages -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Student Table -->
+    <div class="table-responsive shadow-sm rounded-3">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-primary">
+                <tr class="text-center">
+                    <th>Enrollment No</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Cricket</th>
+                    <th>12th %</th>
+                    <th>Live in Rajkot</th>
+                    <th class="text-nowrap">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Rows.Count == 0)
+                {
+                    <tr>
+                        <td colspan="9" class="text-center text-muted py-4">
+                            No students found.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (System.Data.DataRow row in Model.Rows)
+                    {
+                        <tr>
+                            <td>@row["EnrollmentNo"]</td>
+                            <td>@row["Name"]</td>
+                            <td>@row["MobileNo"]</td>
+                            <td>@row["Email"]</td>
+                            <td>@row["Gender"]</td>
+                            <td>@((bool)row["IsPlaingCricket"] ? "Yes" : "No")</td>
+                            <td>@row["TwelthPercentage"]</td>
+                            <td>@((bool)row["IsLiveInRajkot"] ? "Yes" : "No")</td>
+                            <td class="text-center">
+                                <a href="@Url.Action("StudentForm", "Student", new { EnrollmentNo = row["EnrollmentNo"] })"
+                                   class="btn btn-sm btn-warning me-1 shadow-sm">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </a>
+                                <a href="@Url.Action("StudentDelete", "Student", new { EnrollmentNo = row["EnrollmentNo"] })"
+                                   class="btn btn-sm btn-danger shadow-sm"
+                                   onclick="return confirm('Are you sure you want to delete this student?');">
+                                    <i class="bi bi-trash"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Bootstrap Icons (optional) -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+}

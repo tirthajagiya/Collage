@@ -1,0 +1,243 @@
+﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.EMMA;
+using Hospital_Management_System.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace Hospital_Management_System.Controllers
+{
+
+
+    public class UserController : Controller
+    {
+        private IConfiguration _configuration;
+        public UserController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+        [HttpPost]
+        public IActionResult UserLogin(UserLoginModel userLoginModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    string connectionString = this._configuration.GetConnectionString("ConnectionString");
+                    SqlConnection sqlConnection = new SqlConnection(connectionString);
+                    sqlConnection.Open();
+                    SqlCommand sqlCommand = sqlConnection.CreateCommand();
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sqlCommand.CommandText = "PR_User_ValidateLogin";
+                    sqlCommand.Parameters.Add("@Username", SqlDbType.VarChar).Value = userLoginModel.Username;
+                    sqlCommand.Parameters.Add("@Password", SqlDbType.VarChar).Value = userLoginModel.Password;
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    DataTable dataTable = new DataTable();
+                    dataTable.Load(sqlDataReader);
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dataTable.Rows)
+                        {
+                            HttpContext.Session.SetString("UserID", dr["UserID"].ToString());
+                            HttpContext.Session.SetString("UserName", dr["UserName"].ToString());
+                            HttpContext.Session.SetString("EmailAddress", dr["Email"].ToString());
+                        }
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "User is not found";
+                        return RedirectToAction("Login", "User");
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = e.Message;
+            }
+
+            return RedirectToAction("Login");
+        }
+        
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult SignUp()
+        {
+            return View();
+        }
+
+
+
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "User");
+        }
+
+
+        public IActionResult Index()
+        {
+            return View("UserAddEdit", new UserModel());
+        }
+
+        public IActionResult ExportToExcel()
+        {
+            DataTable dt = RetrieveData("PR_User_SelectAll");
+
+            using (var workbook = new XLWorkbook())
+            {
+                // Add the DataTable to a worksheet
+                workbook.Worksheets.Add(dt, "Users");
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+
+                    return File(
+                        content,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        "Users.xlsx"
+                    );
+                }
+            }
+        }
+
+
+        public DataTable RetrieveData(String SP)
+        {
+            SqlConnection conn = new SqlConnection(this._configuration.GetConnectionString("ConnectionString"));
+            conn.Open();
+
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = SP;
+            //if (PKID != 0)
+            //{
+            //    cmd.Parameters.AddWithValue("@" + PKName, PKID);
+            //}
+            SqlDataReader reader = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(reader);
+            conn.Close();
+
+            return dt;
+        }
+
+
+
+        public IActionResult Edit(int? UserID)
+        {
+            UserModel model = new UserModel();
+
+            if (UserID != null)
+            {
+                string connectionString = _configuration.GetConnectionString("ConnectionString");
+                using SqlConnection conn = new SqlConnection(connectionString);
+                conn.Open();
+
+                using SqlCommand cmd = new SqlCommand("PR_User_SelectByPK", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@UserID", UserID);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    model.UserID = Convert.ToInt32(dr["UserID"]);
+                    model.UserName = dr["UserName"].ToString();
+                    model.Password = dr["Password"].ToString();
+                    model.Email = dr["Email"].ToString();
+                    model.MobileNo = dr["MobileNo"].ToString();
+                    model.IsActive = Convert.ToBoolean(dr["IsActive"]);
+                    model.Modified = Convert.ToDateTime(dr["Modified"]);
+                }
+            }
+
+            return View("UserAddEdit", model);
+        }
+
+        // Save (Insert or Update) User
+        [HttpPost]
+        public IActionResult SaveUser(UserModel model)
+        {
+
+            if (!ModelState.IsValid)
+            {
+
+                return View("UserAddEdit", model);
+            }
+
+            string connectionString = _configuration.GetConnectionString("ConnectionString");
+            using SqlConnection conn = new SqlConnection(connectionString);
+            conn.Open();
+
+            SqlCommand cmd;
+
+            if (model.UserID == 0)
+            {
+                // INSERT
+                cmd = new SqlCommand("PR_User_AddUser", conn);
+            }
+            else
+            {
+                // UPDATE
+                cmd = new SqlCommand("PR_User_EditUser", conn);
+                cmd.Parameters.AddWithValue("@UserID", model.UserID);
+            }
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserName", model.UserName);
+            cmd.Parameters.AddWithValue("@Password", model.Password);
+            cmd.Parameters.AddWithValue("@Email", model.Email);
+            cmd.Parameters.AddWithValue("@MobileNo", model.MobileNo);
+            cmd.Parameters.AddWithValue("@IsActive", model.IsActive);
+            cmd.Parameters.AddWithValue("@Modified", model.Modified);
+
+            cmd.ExecuteNonQuery();
+
+            TempData["SuccessMessage"] = model.UserID == 0 ? "User added successfully" : "User updated successfully";
+            return RedirectToAction("UserList");
+        }
+        public IActionResult UserList()
+        {
+            string ConnectionString = this._configuration.GetConnectionString("ConnectionString");
+            SqlConnection connection = new SqlConnection(ConnectionString);
+            connection.Open();
+            SqlCommand command = connection.CreateCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "[dbo].[PR_User_SelectAll]";
+            SqlDataReader reader = command.ExecuteReader();
+            DataTable table = new DataTable();
+            table.Load(reader);
+            return View(table);
+        }
+
+        public IActionResult UserDelete(int UserID)
+        {
+            try
+            {
+                string connectionString = this._configuration.GetConnectionString("ConnectionString");
+                SqlConnection connection = new SqlConnection(connectionString);
+                connection.Open();
+                SqlCommand command = connection.CreateCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "PR_User_DeleteByPK";
+                command.Parameters.Add("@UserID", SqlDbType.Int).Value = UserID;
+                command.ExecuteNonQuery();     
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+                Console.WriteLine(ex.ToString());
+            }
+            TempData["SuccessMessage"] = "User deleted successfully";
+            return RedirectToAction("UserList");
+        }
+    }
+}

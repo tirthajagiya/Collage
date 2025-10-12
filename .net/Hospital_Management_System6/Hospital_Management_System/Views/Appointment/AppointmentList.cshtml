@@ -1,0 +1,107 @@
+﻿@model DataTable
+@using System.Data
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white d-flex flex-wrap gap-3 align-items-center" style="border-top-left-radius:16px;border-top-right-radius:16px;">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-calendar-check text-warning fs-5"></i>
+                <h5 class="mb-0 fw-semibold">Appointments</h5>
+            </div>
+            <div class="ms-auto d-flex flex-wrap gap-2">
+                <div class="input-group input-group-sm" style="width:260px;">
+                    <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control" placeholder="Search appointments..." data-table-search="#appointmentsTable" />
+                </div>
+                <a asp-controller="Appointment" asp-action="Index" class="btn btn-primary btn-sm">
+                    <i class="bi bi-plus-circle me-1"></i> Add Appointment
+                </a>
+                <a class="btn btn-outline-success btn-sm"
+                   asp-controller="Appointment"
+                   asp-action="ExportToExcel">
+                    <i class="bi bi-download me-1"></i> Export
+                </a>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table id="appointmentsTable" class="table table-striped table-hover align-middle text-center mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="px-4 py-2">Doctor Name</th>
+                            <th class="px-4 py-2">Patient Name</th>
+                            <th class="px-4 py-2">Appointment Date</th>
+                            <th class="px-4 py-2">Remarks</th>
+                            <th class="px-4 py-2">Status</th>
+                            <th class="px-4 py-2">Description</th>
+                            <th class="px-4 py-2">Created</th>
+                            <th class="px-4 py-2">Modified</th>
+                            <th class="px-4 py-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Rows.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="9" class="text-muted text-center py-3">No appointments found.</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (DataRow row in Model.Rows)
+                            {
+                                <tr>
+                                    <td>@row["DoctorName"]</td>
+                                    <td>@row["PatientName"]</td>
+                                    <td>@Convert.ToDateTime(row["AppointmentDate"]).ToString("yyyy-MM-dd")</td>
+                                    <td>@row["SpecialRemarks"]</td>
+                                    <td>
+                                        @if (row["AppointmentStatus"].ToString() == "Completed")
+                                        {
+                                            <span class="badge bg-success">Completed</span>
+                                        }
+                                        else if (row["AppointmentStatus"].ToString() == "Pending")
+                                        {
+                                            <span class="badge bg-warning text-dark">Pending</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger">Cancelled</span>
+                                        }
+                                    </td>
+                                    <td>@row["Description"]</td>
+                                    <td>@Convert.ToDateTime(row["Created"]).ToString("yyyy-MM-dd")</td>
+                                    <td>@Convert.ToDateTime(row["Modified"]).ToString("yyyy-MM-dd")</td>
+                                    <td>
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <a asp-controller="Appointment"
+                                               asp-action="Edit"
+                                               asp-route-AppointmentID="@row["AppointmentID"]"
+                                               class="btn btn-sm btn-outline-warning"
+                                               title="Edit">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </a>
+                                            <a asp-controller="Appointment"
+                                               asp-action="AppointmentDelete"
+                                               asp-route-AppointmentID="@row["AppointmentID"]"
+                                               class="btn btn-sm btn-outline-danger js-delete"
+                                               data-title="Delete appointment?"
+                                               data-text="This appointment will be permanently deleted."
+                                               title="Delete">
+                                                <i class="bi bi-trash3-fill"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

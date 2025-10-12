@@ -28,5 +28,8 @@ namespace Hospital_Management_System.Models
 
         [Required]
         public DateTime Modified { get; set; }
+
+        public IFormFile? profileImg { get; set; }
+        public string? profileImgSrc { get; set; }
     }
 }

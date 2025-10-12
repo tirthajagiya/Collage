@@ -1,0 +1,134 @@
+﻿@model SMS.Models.StudentModel
+
+@{
+    ViewData["Title"] = ViewBag.Title;
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card border-0 shadow-lg rounded-4">
+                <!-- Header -->
+                <div class="card-header bg-gradient bg-primary text-white d-flex justify-content-between align-items-center rounded-top-4">
+                    <h3 class="mb-0 fw-semibold">@ViewBag.Title</h3>
+
+                    <!-- ✅ Go to Student List Button -->
+                    <a asp-controller="Student"
+                       asp-action="StudentList"
+                       class="btn btn-light btn-sm shadow-sm">
+                        <i class="bi bi-list-ul me-1"></i> Student List
+                    </a>
+                </div>
+
+                <!-- Body -->
+                <div class="card-body p-4">
+                    <form asp-action="StudentAddEdit" method="post" novalidate>
+                        @* Hidden ID *@
+                        <input type="hidden" asp-for="EnrollmentNo" />
+
+                        <!-- Name -->
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label fw-bold"></label>
+                            <input asp-for="Name" class="form-control shadow-sm" placeholder="Enter full name" />
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Mobile -->
+                        <div class="mb-3">
+                            <label asp-for="MobileNo" class="form-label fw-bold"></label>
+                            <input asp-for="MobileNo" class="form-control shadow-sm" placeholder="e.g. 9876543210" />
+                            <span asp-validation-for="MobileNo" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="mb-3">
+                            <label asp-for="Address" class="form-label fw-bold"></label>
+                            <textarea asp-for="Address" class="form-control shadow-sm" rows="2" placeholder="Residential address"></textarea>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label fw-bold"></label>
+                            <input asp-for="Email" type="email" class="form-control shadow-sm" placeholder="name@example.com" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Gender -->
+                        <div class="mb-3">
+                            <label asp-for="Gender" class="form-label fw-bold"></label>
+                            <select asp-for="Gender" class="form-select shadow-sm">
+                                <option value="">-- Select Gender --</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                            <span asp-validation-for="Gender" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Playing Cricket -->
+                        <div class="mb-3">
+                            <label asp-for="IsPlaingCricket" class="form-label fw-bold"></label><br />
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" asp-for="IsPlaingCricket" value="true" />
+                                <label class="form-check-label">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" asp-for="IsPlaingCricket" value="false" />
+                                <label class="form-check-label">No</label>
+                            </div>
+                            <span asp-validation-for="IsPlaingCricket" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label fw-bold"></label>
+                            <input asp-for="Password" type="password" class="form-control shadow-sm" placeholder="Enter password" />
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="mb-3">
+                            <label asp-for="ConfirmPassword" class="form-label fw-bold"></label>
+                            <input asp-for="ConfirmPassword" type="password" class="form-control shadow-sm" placeholder="Re-enter password" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                        </div>
+
+                        <!-- 12th Percentage -->
+                        <div class="mb-3">
+                            <label asp-for="TwelthPercentage" class="form-label fw-bold"></label>
+                            <input asp-for="TwelthPercentage" class="form-control shadow-sm" placeholder="e.g. 85" />
+                            <span asp-validation-for="TwelthPercentage" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Live in Rajkot -->
+                        <div class="mb-3">
+                            <label asp-for="IsLiveInRajkot" class="form-label fw-bold"></label><br />
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" asp-for="IsLiveInRajkot" value="true" />
+                                <label class="form-check-label">Yes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" asp-for="IsLiveInRajkot" value="false" />
+                                <label class="form-check-label">No</label>
+                            </div>
+                            <span asp-validation-for="IsLiveInRajkot" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Form Buttons -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="StudentList" class="btn btn-outline-secondary px-4">
+                                <i class="bi bi-arrow-left"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-success px-5">
+                                <i class="bi bi-check-circle"></i> Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

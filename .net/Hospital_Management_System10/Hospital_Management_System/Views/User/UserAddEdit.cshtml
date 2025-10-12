@@ -1,0 +1,104 @@
+﻿@model Hospital_Management_System.Models.UserModel
+
+@{
+    ViewData["Title"] = Model.UserID == 0 ? "Add User" : "Edit User";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-5">
+    <!-- Card Container -->
+    <div class="card shadow-lg border-0 rounded-4">
+        <!-- Card Header with Gradient -->
+        <div class="card-header text-white d-flex align-items-center"
+             style="border-top-left-radius:16px;border-top-right-radius:16px; background: linear-gradient(135deg,#667eea,#764ba2);">
+            <h4 class="mb-0 fw-bold">@ViewData["Title"]</h4>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body p-4">
+            <form asp-action="SaveUser" asp-controller="User" method="post" novalidate>
+                <input type="hidden" asp-for="UserID" />
+                <input type="hidden" asp-for="Modified" value="@DateTime.Now" />
+
+                <div class="row g-4">
+                    <!-- User Name -->
+                    <div class="col-md-6">
+                        <label asp-for="UserName" class="form-label fw-semibold text-secondary">User Name</label>
+                        <input asp-for="UserName" class="form-control shadow-sm" placeholder="Enter user name" />
+                        <span asp-validation-for="UserName" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="form-label fw-semibold text-secondary">Email</label>
+                        <input asp-for="Email" type="email" class="form-control shadow-sm" placeholder="Enter email address" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="col-md-6">
+                        <label asp-for="Password" class="form-label fw-semibold text-secondary">Password</label>
+                        <input asp-for="Password" type="password" class="form-control shadow-sm" placeholder="Enter password" />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Mobile Number -->
+                    <div class="col-md-6">
+                        <label asp-for="MobileNo" class="form-label fw-semibold text-secondary">Mobile Number</label>
+                        <input asp-for="MobileNo" class="form-control shadow-sm" placeholder="Enter mobile number" />
+                        <span asp-validation-for="MobileNo" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Active Checkbox -->
+                    <div class="col-12">
+                        <div class="form-check form-switch">
+                            <input asp-for="IsActive" class="form-check-input" type="checkbox" />
+                            <label asp-for="IsActive" class="form-check-label fw-semibold text-secondary">Active</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-flex gap-3 mt-4">
+                    <button type="submit" class="btn btn-gradient-success shadow-sm">
+                        @(Model.UserID == 0 ? "Add User" : "Update User")
+                    </button>
+                    <a asp-action="UserList" class="btn btn-outline-secondary shadow-sm">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Gradient Button */
+    .btn-gradient-success {
+        background: linear-gradient(135deg,#43e97b,#38f9d7);
+        border: none;
+        color: white;
+        font-weight: 600;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .btn-gradient-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+    /* Input focus shadow */
+    .form-control:focus {
+        border-color: #764ba2;
+        box-shadow: 0 0 5px rgba(118,75,162,0.4);
+    }
+
+    /* Card hover effect */
+    .card:hover {
+        transform: translateY(-2px);
+        transition: all 0.3s ease-in-out;
+    }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,70 @@
+﻿@model DataTable
+@using System.Data
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<div class="container mt-5">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Doctor-Department Mappings</h4>
+            <a asp-controller="DoctorDepartment" asp-action="Index" class="btn btn-light fw-bold text-primary">
+                <i class="bi bi-plus-circle"></i> Add Mapping
+            </a>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover text-center align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Doctor Name</th>
+                            <th>Department Name</th>
+                            <th>Created By</th>
+                            <th>Created</th>
+                            <th>Modified</th>
+                            <th style="width: 120px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Rows.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="6" class="text-muted py-3">No mappings found.</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (DataRow row in Model.Rows)
+                            {
+                                <tr>
+                                    <td>@row["DoctorName"]</td>
+                                    <td>@row["DepartmentName"]</td>
+                                    <td>@row["UserName"]</td>
+                                    <td>@Convert.ToDateTime(row["Created"]).ToString("yyyy-MM-dd")</td>
+                                    <td>@Convert.ToDateTime(row["Modified"]).ToString("yyyy-MM-dd")</td>
+                                    <td>
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <a asp-controller="DoctorDepartment"
+                                               asp-action="Index"
+                                               asp-route-DoctorDepartmentID="@row["DoctorDepartmentID"]"
+                                               class="btn btn-sm btn-outline-warning" title="Edit">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </a>
+                                            <a asp-controller="DoctorDepartment"
+                                               asp-action="DoctorDepartmentDelete"
+                                               asp-route-DoctorDepartmentID="@row["DoctorDepartmentID"]"
+                                               onclick="return confirm('Are you sure you want to delete this mapping?');"
+                                               class="btn btn-sm btn-outline-danger" title="Delete">
+                                                <i class="bi bi-trash3-fill"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

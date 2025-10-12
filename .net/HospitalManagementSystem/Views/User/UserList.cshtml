@@ -1,3 +1,33 @@
-﻿<h2>
-	User List
-</h2>
+﻿@model DataTable;
+@using System.Data
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>UserID</th>
+            <th>UserName</th>
+            <th>Password</th>
+            <th>Email</th>
+            <th>MobileNo</th>
+            <th>IsActive</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in Model.Rows)
+        {
+            <tr>
+                <td>@row["UserID"]</td>
+                <td>@row["UserName"]</td>
+                <td>@row["Password"]</td>
+                <td>@row["Email"]</td>
+                <td>@row["MobileNo"]</td>
+                <td>@row["IsActive"]</td>
+                <td>
+                    <a class="btn btn-danger" asp-controller="User" asp-action="UserDelete" asp-Route-UserID="@row["UserID"]">Delete</a>
+                    <a class="btn btn-info" asp-controller="User" asp-action="SetFieldValue" asp-Route-UserID="@row["UserID"]">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

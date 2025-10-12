@@ -1,0 +1,1 @@
+D:\MyWork\Collage\.net\HospitalManagementSystem\wwwroot\assets\vendor\simple-datatables\style.css

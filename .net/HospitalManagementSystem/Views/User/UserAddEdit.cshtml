@@ -1,0 +1,16 @@
+﻿@model HospitalManagementSystem.Models.UserModel;
+
+<h3>Add/Edit User</h3>
+
+<form method="post" asp-controller="User" asp-action="UserAddEdit">
+    <input type="hidden" asp-for="UserID" />
+    <input type="text" asp-for="UserName" name="UserName" placeholder="User Name"/>
+    <input type="text" asp-for="Password" name="Password" placeholder="Password"/>
+    <input type="text" asp-for="Email" name="Email" placeholder="Email"/>
+    <input type="text" asp-for="MobileNo" name="MobileNo" placeholder="Mobile Number"/>
+    <input type="checkbox" asp-for="IsActive" class="form-check-input" name="IsActive" checked />
+    <label class="form-check-label">Is Active</label>
+    <input type="hidden" asp-for="Modified" value="@DateTime.Now"/>
+    <input type="submit"/>
+    <button asp-controller="User" asp-action="UserList">Cancel</button>
+</form>

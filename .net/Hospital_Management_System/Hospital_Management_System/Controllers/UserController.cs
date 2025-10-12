@@ -1,7 +1,18 @@
-﻿using Hospital_Management_System.Models;
+﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.EMMA;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Hospital_Management_System.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Net.Sockets;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Hospital_Management_System.Helpers;
+using Hospital_Management_System.Models;
 
 namespace Hospital_Management_System.Controllers
 {
@@ -10,15 +21,126 @@ namespace Hospital_Management_System.Controllers
     public class UserController : Controller
     {
         private IConfiguration _configuration;
-
-         public UserController(IConfiguration configuration)
+        public UserController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
+        [HttpPost]
+        public IActionResult UserLogin(UserLoginModel userLoginModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    string connectionString = this._configuration.GetConnectionString("ConnectionString");
+                    SqlConnection sqlConnection = new SqlConnection(connectionString);
+                    sqlConnection.Open();
+                    SqlCommand sqlCommand = sqlConnection.CreateCommand();
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                    sqlCommand.CommandText = "PR_User_ValidateLogin";
+                    sqlCommand.Parameters.Add("@Username", SqlDbType.VarChar).Value = userLoginModel.Username;
+                    sqlCommand.Parameters.Add("@Password", SqlDbType.VarChar).Value = userLoginModel.Password;
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    DataTable dataTable = new DataTable();
+                    dataTable.Load(sqlDataReader);
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in dataTable.Rows)
+                        {
+                            HttpContext.Session.SetString("UserID", dr["UserID"].ToString());
+                            HttpContext.Session.SetString("UserName", dr["UserName"].ToString());
+                            HttpContext.Session.SetString("EmailAddress", dr["Email"].ToString());
+                        }
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "User is not found";
+                        return RedirectToAction("Login", "User");
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = e.Message;
+            }
+
+            return RedirectToAction("Login");
+        }
+        
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult SignUp()
+        {
+            return View();
+        }
+
+
+
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "User");
+        }
+
+
         public IActionResult Index()
         {
             return View("UserAddEdit", new UserModel());
         }
+
+        public IActionResult ExportToExcel()
+        {
+            DataTable dt = RetrieveData("PR_User_SelectAll");
+
+            using (var workbook = new XLWorkbook())
+            {
+                // Add the DataTable to a worksheet
+                workbook.Worksheets.Add(dt, "Users");
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+
+                    return File(
+                        content,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        "Users.xlsx"
+                    );
+                }
+            }
+        }
+
+
+        public DataTable RetrieveData(String SP)
+        {
+            SqlConnection conn = new SqlConnection(this._configuration.GetConnectionString("ConnectionString"));
+            conn.Open();
+
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = SP;
+            //if (PKID != 0)
+            //{
+            //    cmd.Parameters.AddWithValue("@" + PKName, PKID);
+            //}
+            SqlDataReader reader = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(reader);
+            conn.Close();
+
+            return dt;
+        }
+
+
+
         public IActionResult Edit(int? UserID)
         {
             UserModel model = new UserModel();
@@ -53,8 +175,10 @@ namespace Hospital_Management_System.Controllers
         [HttpPost]
         public IActionResult SaveUser(UserModel model)
         {
+
             if (!ModelState.IsValid)
             {
+
                 return View("UserAddEdit", model);
             }
 
@@ -68,6 +192,14 @@ namespace Hospital_Management_System.Controllers
             {
                 // INSERT
                 cmd = new SqlCommand("PR_User_AddUser", conn);
+                try
+                {
+                    model.profileImgSrc = ImageHelper.SaveImage(model.profileImg, "Profile");
+                }
+                catch (System.Exception)
+                {
+                    Console.WriteLine("file not provided mostly");
+                }
             }
             else
             {
@@ -86,6 +218,7 @@ namespace Hospital_Management_System.Controllers
 
             cmd.ExecuteNonQuery();
 
+            TempData["SuccessMessage"] = model.UserID == 0 ? "User added successfully" : "User updated successfully";
             return RedirectToAction("UserList");
         }
         public IActionResult UserList()
@@ -120,6 +253,7 @@ namespace Hospital_Management_System.Controllers
                 TempData["ErrorMessage"] = ex.Message;
                 Console.WriteLine(ex.ToString());
             }
+            TempData["SuccessMessage"] = "User deleted successfully";
             return RedirectToAction("UserList");
         }
     }

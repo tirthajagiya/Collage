@@ -1,0 +1,133 @@
+﻿@model DataTable
+@using System.Data
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<div class="container mt-5">
+    <!-- Header Section -->
+    <div class="card shadow border-0 rounded-4 mb-4"
+         style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+        <div class="card-body d-flex align-items-center text-white">
+            <h3 class="fw-bold mb-0">
+                <i class="bi bi-people-fill me-2"></i> Users List
+            </h3>
+            <div class="ms-auto">
+                <a asp-controller="User" asp-action="Index" class="btn btn-light me-2 rounded-pill">
+                    <i class="bi bi-person-plus-fill me-1"></i> Add User
+                </a>
+                <a asp-controller="User" asp-action="ExportToExcel" class="btn btn-dark rounded-pill">
+                    <i class="bi bi-download me-1"></i> Export
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Message -->
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger shadow-sm rounded-3">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <!-- Users Table -->
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table align-middle mb-0 text-center">
+                    <thead style="background: #e0f7fa; color: #006064;">
+                        <tr>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Modified</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (DataRow row in Model.Rows)
+                        {
+                            <tr style="transition: all 0.2s;">
+                                <td class="fw-semibold text-dark">@row["UserName"]</td>
+                                <td class="text-muted">@row["Email"]</td>
+                                <td>
+                                    @if (Convert.ToBoolean(row["IsActive"]))
+                                    {
+                                        <span class="badge bg-success rounded-pill px-3 py-2">
+                                            <i class="bi bi-check-circle me-1"></i> Active
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger rounded-pill px-3 py-2">
+                                            <i class="bi bi-x-circle me-1"></i> Inactive
+                                        </span>
+                                    }
+                                </td>
+                                <td>@Convert.ToDateTime(row["Created"]).ToString("dd-MMM-yyyy")</td>
+                                <td>@Convert.ToDateTime(row["Modified"]).ToString("dd-MMM-yyyy")</td>
+                                <td>
+                                    <a asp-controller="User"
+                                       asp-action="Edit"
+                                       asp-route-UserID="@row["UserID"]"
+                                       class="btn btn-sm btn-outline-primary rounded-pill me-1">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a href="@Url.Action("UserDelete", "User", new { UserID = row["UserID"] })"
+                                       class="btn btn-sm btn-outline-danger rounded-pill js-delete"
+                                       data-title="Are you sure?"
+                                       data-text="This user will be permanently deleted!">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SweetAlert2 Delete Confirmation -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".js-delete").forEach(btn => {
+            btn.addEventListener("click", function (e) {
+                e.preventDefault();
+                const url = this.getAttribute("href");
+                const title = this.dataset.title || "Are you sure?";
+                const text = this.dataset.text || "You won't be able to revert this!";
+
+                Swal.fire({
+                    title: title,
+                    text: text,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#6c757d",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = url;
+                    }
+                });
+            });
+        });
+
+        // Hover glow effect on table rows
+        document.querySelectorAll("tbody tr").forEach(row => {
+            row.addEventListener("mouseenter", () => {
+                row.style.backgroundColor = "#f1f9ff";
+                row.style.boxShadow = "inset 0 0 10px rgba(0,0,0,0.05)";
+            });
+            row.addEventListener("mouseleave", () => {
+                row.style.backgroundColor = "";
+                row.style.boxShadow = "";
+            });
+        });
+    });
+</script>
