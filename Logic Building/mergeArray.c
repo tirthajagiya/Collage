@@ -1,0 +1,42 @@
+#include <stdio.h>
+
+void main()
+{
+    int n1, n2, temp=0;
+    printf("Enter First Array size :");
+    scanf("%d", &n1);
+    printf("Enter Second Array size :");
+    scanf("%d", &n2);
+    int arr1[n1], arr2[n2], arr3[n1 + n2];
+
+    for (int i = 0; i < n1; i++)
+    {
+        printf("Enter %d element of first Array : ", i+1);
+        scanf("%d", &arr1[i]);
+    }
+
+    for (int j = 0; j < n2; j++)
+    {
+        printf("Enter %d element of second Array : ", j+1);
+        scanf("%d", &arr2[j]);
+    }
+
+    for (int k = 0; k < n1; k++)
+    {
+        arr3[k] = arr1[k];
+        temp++;
+    }
+
+    for (int l = 0; l < n2; l++)
+    {
+        arr3[temp] = arr2[l];
+        temp++;
+    }
+
+    printf("[");
+    for (int m = 0; m < n1 + n2; m++)
+    {
+        printf("%d,", arr3[m]);
+    }
+    printf("]");
+}
